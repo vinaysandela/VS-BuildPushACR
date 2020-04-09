@@ -7,20 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Azure Login
-      uses: Azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-    - name: Azure CLI Action
-      uses: Azure/cli@v1.0.0
-      with:
-        inlineScript: 
-          az group create -n "VSRG4FH" -l West US
-          az acr create --resource-group VSRG4FH --name VSRG4FHACR --sku Basic --admin-enabled true
-    # Azure CLI version to be used to execute the script. If not provided, latest version is used
-  #  azcliversion: # optional, default is latest
-    
     - name: Docker Login
       uses: Azure/docker-login@v1
       with:
@@ -37,7 +23,7 @@ jobs:
     #    docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
     - name: docker build csharp
       run: |
-        docker build ./c# -t samplegroupacr.azurecr.io/csharp:1.1.0
+        docker build ./c# -t samplegroupacr.azurecr.io/vscsharp:1.1.0
 #    - name: docker build nodejs
 #      run: |
 #        docker build ./nodejs -t aimvector/nodejs:1.0.0
@@ -49,7 +35,7 @@ jobs:
 #        docker build ./golang -t aimvector/golang:1.0.0
     - name: docker push
       run: |
-        docker push samplegroupacr.azurecr.io/csharp:1.1.0
+        docker push samplegroupacr.azurecr.io/vscsharp:1.1.0
 #        docker push aimvector/nodejs:1.0.0
 #        docker push aimvector/golang:1.0.0
 #        docker push aimvector/python:1.0.0
