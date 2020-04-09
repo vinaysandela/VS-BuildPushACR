@@ -7,13 +7,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Azure Login
+      uses: Azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Azure CLI Action
+      uses: Azure/cli@v1.0.0
+      with:
+        inlineScript: 
+          az group create -n "VSRG4FH" -l South Central US
+          az acr create --resource-group VSRG4FH --name VSRG4FHACR --sku Basic --admin-enabled true
+    # Azure CLI version to be used to execute the script. If not provided, latest version is used
+  #  azcliversion: # optional, default is latest
+    
     - name: Docker Login
       uses: Azure/docker-login@v1
       with:
          username: ${{ secrets.DOCKER_USER }} 
          password: ${{ secrets.DOCKER_PASSWORD }} 
-         login-server: samplegroupacr.azurecr.io
-    
+         login-server: VSRG4FH.azurecr.io
+
     
 ##    - name: docker login
   #    env:
