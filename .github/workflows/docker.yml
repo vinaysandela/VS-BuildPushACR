@@ -12,7 +12,7 @@ jobs:
       with:
          username: ${{ secrets.DOCKER_USER }} 
          password: ${{ secrets.DOCKER_PASSWORD }} 
-         login-server: VSRG4FH.azurecr.io
+         login-server: samplegroupacr.azurecr.io
 
     
 ##    - name: docker login
